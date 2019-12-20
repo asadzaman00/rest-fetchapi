@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AMAZ-TECH | Fetch API</title>
+    <script src="hello.js"></script>
+</head>
+
+<body>
+    <div class="w3-container">
+        <p>
+            <input type="submit" value="GET DATA FROM API" id="getAPI" class="w3-btn w3-blue w3-margin">
+        </p>
+    
+
+        <div id="result" class="w3-container"></div>
+
+    </div>
+    <script>
+        document.getElementById('getAPI').addEventListener('click', getAPI2);
+        function getAPI() {
+
+            /*********************************************
+           *          Using jsonplaceholder API         *
+           * ********************************************/
+
+            fetch('https://jsonplaceholder.typicode.com/users')
+                .then((res) => 
+                  { 
+                    return res.json() 
+                  }
+                )
+                .then((data) => 
+                {
+                    let result = `<h2 class="w3-center w3-allerta w3-xxlarge"> Random User Info From Jsonplaceholder API</h2>`;
+                    data.forEach((user) => {
+                        const {id, name, email, address:{city,street,zipcode}} = user
+                        result +=
+                           `
+                               <h5> User ID: ${id} </h5>
+                                <ul class="w3-ul">
+                                    <li> User Full Name : ${name}</li>
+                                    <li> User Email : ${email} </li>
+                                    <li> User Address : ${city}, ${street}, ${zipcode} </li>
+                                </ul>
+                             </div>
+                            `;
+                        document.getElementById('result').innerHTML = result;
+                    });
+                })
+
+        }
+
+         function getAPI2() {
+
+            /*********************************************
+           *          Using jsonplaceholder API         *
+           * ********************************************/
+
+            fetch('https://jsonplaceholder.typicode.com/users')
+                .then((res) => { return res.json() })
+                .then((data) => {
+                    let result = `<h2 class="w3-center w3-allerta w3-xxlarge"> Random User Info From Jsonplaceholder API</h2>`;
+                    data.forEach((user) => {
+                        const {id, name, email, address:{city,street,zipcode}} = user
+                        result +=
+                            `<div class="w3-panel w3-leftbar w3-border w3-round-small w3-border-blue w3-margin">
+                                <h5> User ID: ${id} </h5>
+                                <ul class="w3-ul">
+                                    <li> User Full Name : ${name}</li>
+                                    <li> User Email : ${email} </li>
+                                    <li> User Address : ${city}, ${street}, ${zipcode} </li>
+                                </ul>
+                             </div>`;
+                        document.getElementById('result').innerHTML = result;
+                    });
+                })
+
+        }
+    </script>
+
+</body>
+
+</html>
