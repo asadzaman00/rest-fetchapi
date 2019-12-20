@@ -21,7 +21,7 @@
 
     </div>
     <script>
-        document.getElementById('getAPI').addEventListener('click', getAPI2);
+        document.getElementById('getAPI').addEventListener('click', getAPI);
         function getAPI() {
 
             /*********************************************
@@ -61,26 +61,74 @@
            *          Using jsonplaceholder API         *
            * ********************************************/
 
-            fetch('https://jsonplaceholder.typicode.com/users')
-                .then((res) => { return res.json() })
-                .then((data) => {
-                    let result = `<h2 class="w3-center w3-allerta w3-xxlarge"> Random User Info From Jsonplaceholder API</h2>`;
-                    data.forEach((user) => {
-                        const {id, name, email, address:{city,street,zipcode}} = user
-                        result +=
-                            `<div class="w3-panel w3-leftbar w3-border w3-round-small w3-border-blue w3-margin">
-                                <h5> User ID: ${id} </h5>
-                                <ul class="w3-ul">
-                                    <li> User Full Name : ${name}</li>
-                                    <li> User Email : ${email} </li>
-                                    <li> User Address : ${city}, ${street}, ${zipcode} </li>
-                                </ul>
-                             </div>`;
-                        document.getElementById('result').innerHTML = result;
-                    });
-                })
+           // The parameters we are gonna pass to the fetch function
 
-        }
+let fetchData = { 
+    method: 'GET', 
+    headers: new Headers({
+      "Content-Type": "text/plain",
+      's_id': 'ad7atd78dt'
+})
+}
+
+// fetch('http://dev1tp.mandtbank.com/VSB/api/Accounts')
+//   .then((resp) => resp.json()) // Transform the data into json
+//   .then(function(data) {
+//     // Create and append the li's to the ul
+//     console.log (data);
+//     })
+
+// fetch('https://api.github.com/users/chrissycoyier/repos')
+//   .then(response => response.json(),
+//   console.log('data is', response.status))
+//   .then(data => 
+//   console.log('data is', data)
+// )
+//   .catch(error => console.log('error is', error))
+//   }
+
+  fetch("http://dev1tp.mandtbank.com/VSB/api/Accounts", {'mode': 'no-cors'})
+  .then(function(res) {
+  // res instanceof Response == true.
+  if (res.ok) 
+  {
+    res.json().then(function(data) {
+      console.log(data);
+    })
+
+  } else {
+    console.log("Looks like the response wasn't perfect, got status", res.status);
+  }
+}, function(e) {
+  console.log("Fetch failed!", e);
+});
+
+
+// fetch('https://gauntface.com', {'mode': 'no-cors'})
+// .then(function(response) {
+//   if (response.type === 'opaque') {
+//     console.log('Received a response, but it\'s opaque so can\'t examine it');
+
+//     // Do something with the response (i.e. cache it for offline support)
+//     return;
+//   }
+
+//   if (response.status !== 200) {
+//     console.log('Looks like there was a problem. Status Code: '   response.status);
+//     return;
+//   }
+
+//   // Examine the text in the response
+//   response.text().then(function(responseText) {
+//     console.log(responseText);
+//   });
+// })
+
+
+
+
+}
+
     </script>
 
 </body>
